@@ -18,34 +18,45 @@ namespace WebApplication1.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-
-                ApplicationDbContext db = new ApplicationDbContext();
-                var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
-                var currentUser = manager.FindById(User.Identity.GetUserId());
-                string currentID = User.Identity.GetUserId();
-
-                currentUser.Interests = (from i in db.Interest
-                       where i.UserID == currentID select i).ToList();
-
-                ViewBag.FirstName = currentUser.FirstName;
-                ViewBag.LastName = currentUser.LastName;
-
-                string[] interestsArray = (from s in currentUser.Interests select s.InterestString).ToList().ToArray();
-
-                ViewBag.Interests = interestsArray;
-
-                string imageBase64Data = Convert.ToBase64String(currentUser.UserImage);
-                string imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
-
-                ViewBag.Image = imageDataURL;
-
                 return View();
             }
 
             else
             {
-                return StartPage();
-            }            
+                return View("StartPage");
+            }
+        }
+
+        public ActionResult UserProfilePartial()
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            var currentUser = manager.FindById(User.Identity.GetUserId());
+            string currentID = User.Identity.GetUserId();
+
+            currentUser.Interests = (from i in db.Interest
+                                     where i.UserID == currentID
+                                     select i).ToList();
+
+            currentUser.Friends = (from f in db.Friends
+                                   where f.UserID == currentID
+                                   select f).ToList();
+
+            ViewBag.FirstName = currentUser.FirstName;
+            ViewBag.LastName = currentUser.LastName;
+
+            string[] interestsArray = (from s in currentUser.Interests select s.InterestString).ToList().ToArray();
+            string[] friendsArray = (from s in currentUser.Friends select s.FriendID).ToList().ToArray();
+
+            ViewBag.Interests = interestsArray;
+            ViewBag.Friends = friendsArray;
+
+            string imageBase64Data = Convert.ToBase64String(currentUser.UserImage);
+            string imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
+
+            ViewBag.Image = imageDataURL;
+
+            return View();
         }
 
         public ActionResult About()
@@ -60,11 +71,6 @@ namespace WebApplication1.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-
-        private ActionResult StartPage()
-        {
-            return View("StartPage");
         }
     }
 }

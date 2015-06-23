@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNet.Identity
+
+@{
+    Layout = null;
+}
+<div class="row profile hidden-xs">
+    <div class="col-md-3">
+        <div class="profile-sidebar">
+            <!-- SIDEBAR USERPIC -->
+            <div class="profile-userpic">
+                <img src="@ViewBag.Image" style="width:150px; height: 150px;"
+                     class="img-responsive" alt="" />
+            </div>
+            <!-- END SIDEBAR USERPIC -->
+            <!-- SIDEBAR USER TITLE -->
+            <div class="profile-usertitle">
+                <div class="profile-usertitle-name">
+                    @ViewBag.FirstName
+                    @ViewBag.LastName
+                </div>
+                <!--<div class="profile-usertitle-job">
+                    Developer
+                </div>-->
+            </div>
+            <!-- END SIDEBAR USER TITLE -->
+            <!-- SIDEBAR MENU -->
+            <div class="profile-usermenu">
+                <ul class="nav">
+                    <li>
+                        <a class="btn showdetails" data-toggle="collapse" data-target="#viewContent" href="#">
+                            <i class="glyphicon glyphicon-picture"></i>
+                            Stories
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn showdetails" data-toggle="collapse" data-target="#viewFriends">
+                            <i class="glyphicon glyphicon-user"></i>
+                            Friends&nbsp;&nbsp;&nbsp;&nbsp;@ViewBag.Friends.Length
+                        </a>
+                        <p class="collapse" id="viewFriends" style="color: black;">
+                            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+                        </p>
+                    </li>
+                    <li>
+                        <a class="btn showdetails" data-toggle="collapse" data-target="#viewInterests">
+                            <i class="glyphicon glyphicon-list"></i>
+                            Interests
+                        </a>
+                        <p class="collapse" id="viewInterests" style="color: black;">
+                            @{
+                                for (int i = 0; i < ViewBag.Interests.Length; i++)
+                                {
+                                    @ViewBag.Interests[i]
+                                    <br />
+                                }}
+                        </p>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Manage", "Account")">
+                            <i class=" glyphicon glyphicon-flag">
+                            </i>
+                            Manage Account
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- END MENU -->
+        </div>
+    </div>
+</div>
+

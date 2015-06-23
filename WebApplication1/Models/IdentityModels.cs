@@ -23,7 +23,7 @@ namespace WebApplication1.Models
 
         public ICollection<Interest> Interests { get; set; }
 
-        public  ICollection<string> Friends { get; set; }
+        public  ICollection<Friend> Friends { get; set; }
 
     }
 
@@ -36,6 +36,15 @@ namespace WebApplication1.Models
         public string InterestString { get; set; } 
     }
 
+    public class Friend
+    {
+        public int ID { get; set; }
+
+        public string UserID { get; set; }
+
+        public string FriendID { get; set; }
+    }
+
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -43,7 +52,8 @@ namespace WebApplication1.Models
         {
         }
 
-        public DbSet<Interest> Interest { get; set; } 
+        public DbSet<Interest> Interest { get; set; }
 
+        public DbSet<Friend> Friends { get; set; }
     }
 }

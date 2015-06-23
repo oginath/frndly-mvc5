@@ -304,8 +304,10 @@ footer {
     }
 
     footer .footer-below {
-        padding: 25px 0;
+         position: relative;
+         padding: 25px 0;
         background-color: #233140;
+         z-index: 3;
     }
 
 .btn-social {
@@ -572,6 +574,8 @@ aside #myfront {
     min-height: 800px;
     max-width: 270px;
     min-width: 270px;
+    position: fixed;
+    z-index: 1;
 }
 
 .profile {
@@ -723,4 +727,46 @@ h4.formLabel{
 .genderText{
       float: left;
   font-weight: normal;
+}
+
+.col-md-3{
+    padding-right: 0px!important;
+}
+
+@media (min-width: 992px) {
+    .col-md-3 {
+         width: 0!important;
+    }
+}
+
+.post{
+    background-color: white;
+  color: black;
+    width: 45%;
+  min-height: 240px;
+  border: 1px solid lightgray;
+  margin-top: 40px;
+}
+
+.pageTitle{
+      font-size: 30px;
+  text-align: left;
+  text-transform: uppercase;
+  color: rgb(106, 96, 157);
+  padding: 40px 0px 0px 0px;
+}
+
+.searchName{
+      margin: 10px;
+  margin-right: 55px;
+  margin-top: 23%;
+}
+
+.searchImage{
+      width: 120px;
+  height: 120px;
+  float: left;
+  margin: 10px;
+  margin-top: 13%;
+  margin-left: 50px;
 }

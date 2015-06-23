@@ -111,7 +111,6 @@ namespace WebApplication1.Controllers
                         LastName = model.LastName,
                         BirthDate = model.BirthDate,
                         Gender = model.Gender,
-                        Friends = model.Friends
                     };
 
                     /* Get Interests from model, if element equals "---" don't add it */
