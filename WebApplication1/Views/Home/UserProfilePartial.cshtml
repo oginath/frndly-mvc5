@@ -27,7 +27,7 @@
             <div class="profile-usermenu">
                 <ul class="nav">
                     <li>
-                        <a class="btn showdetails" data-toggle="collapse" data-target="#viewContent" href="#">
+                        <a class="btn showdetails" data-toggle="collapse" data-target="#viewContent" href=@Url.Action("myPage", "Home")>
                             <i class="glyphicon glyphicon-picture"></i>
                             Stories
                         </a>
@@ -35,11 +35,19 @@
                     <li>
                         <a class="btn showdetails" data-toggle="collapse" data-target="#viewFriends">
                             <i class="glyphicon glyphicon-user"></i>
-                            Friends&nbsp;&nbsp;&nbsp;&nbsp;@ViewBag.Friends.Length
+                            Friendships&nbsp;&nbsp;&nbsp;@ViewBag.Friends.Count
                         </a>
-                        <p class="collapse" id="viewFriends" style="color: black;">
-                            Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-                        </p>
+                            <p class="collapse" id="viewFriends" style="color: black;">
+                        @foreach (var friend in ViewBag.Friends)
+                        {
+                            <a class="friendLink" href="@Url.Action("UserPage", "Home", new { userName = friend.UserName })">
+                                @((friend.FirstName as string).Trim())
+                                @(" ")
+                                @((friend.LastName as string).Trim())
+                            </a>
+                                <br />
+                        }
+                            </p>
                     </li>
                     <li>
                         <a class="btn showdetails" data-toggle="collapse" data-target="#viewInterests">

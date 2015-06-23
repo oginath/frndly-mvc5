@@ -740,10 +740,14 @@ h4.formLabel{
 }
 
 .post{
-    background-color: white;
+  float: left;
+  display: inline-block;
+  margin-right: 10px;
+  background-color: white;
   color: black;
-    width: 45%;
+  width: 38%;
   min-height: 240px;
+  max-height: 240px;
   border: 1px solid lightgray;
   margin-top: 40px;
 }
@@ -769,4 +773,102 @@ h4.formLabel{
   margin: 10px;
   margin-top: 13%;
   margin-left: 50px;
+}
+
+.mainContainer{
+    width: 80%; 
+    float: right;
+     padding-bottom: 100px;
+     min-height:800px;
+}
+
+.input-group{
+      width: 260px;
+}
+
+#searchBtn{
+      margin-top: 16px;
+  height: 35px;
+}
+
+#searchBtn:hover, #searchBtn:focus{
+
+    background-color: #95a5a6!important;
+    border-color: #95a5a6!important;
+}
+
+#friendPage{
+
+    float: right;
+  margin-top: -373px;
+  margin-right: 270px;
+}
+
+.searchLink, .searchLink:focus, searchLink:hover{
+
+    color: #B19CFE !important;
+}
+
+#friendshipBtn{
+
+  background-color: rgb(105, 95, 156);
+  border-color: rgb(105, 95, 156);
+}
+
+.friendLink{
+      font-size: inherit !important;
+  font-weight: inherit !important;
+  color: inherit !important;
+}
+
+.postImage{
+
+    width: 50px;
+  padding: 5px;
+  height: 50px;
+  float: left;
+  margin: 0;
+}
+
+.postName{
+    float: left;
+  margin-top: 10px;
+}
+
+.postHR{
+    margin-top: 15px;
+}
+
+.postLink, .postLink:hover{
+        color:gray!important;
+}
+
+.postDate{
+    max-width: 164px;
+  margin-left: 233px;
+  padding-top: 15px;
+  font-size: 16px;
+}
+
+.postBody{
+      max-height: 115px;
+  overflow: auto;
+  padding:5px;
+  text-align: left;
+}
+
+#thumbs{
+    float: left;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.footerHR{
+    margin-bottom: 0;
+}
+
+.likes{
+      float: left;
+  margin-top: 1px;
+  margin-left: 10px;
 }

@@ -1,28 +1,41 @@
-﻿@{
+﻿@model WebApplication1.Models.SearchViewModel
+@{
     Layout = "~/Views/Shared/_LoggedLayout.cshtml";
 }
 
 <div>
-    <div style="width: 80%; float: right; padding-bottom: 100px;">
+    <div class="mainContainer">
         <div style="width: 50px; float: left;"></div>
         <div style="width: 50px; float: right;"></div>
         <div style="margin-left: 50px; margin-right: 50px;">
 
             <p class="pageTitle">Search</p>
 
-            @{for (int i = 0; i < 8; i++)
-            {
+            @if(!@Model.searchResult.Any()){
+
                 <div class="post">
-                    <img class="searchImage" src="~/Content/Images/JohnDoe.png" />
+                    <p style="margin-top: 23%;">No Results!</p> 
+                </div>
+            }
+            
+           else
+           {
+
+            for (int i = 0; i < @Model.searchResult.Count; i++){
+            
+                <div class="post">
+                    <img class="searchImage" src="@Model.imageDataURLs.ElementAt(i)" />
 
                     <p class="searchName">
-                        Search Result
+                        <a class="searchLink" href=@Url.Action("UserPage", "Home", new { userName = Model.searchResult.ElementAt(i).UserName })>
+                        @Model.searchResult.ElementAt(i).FirstName @Model.searchResult.ElementAt(i).LastName
+                        </a>
                     </p>
 
                 </div>
-            }
-            }
-
+                }
+           }
+          
         </div>
     </div>
 
