@@ -1,0 +1,41 @@
+﻿@model WebApplication1.Models.LoginViewModel
+@using Microsoft.AspNet.Identity
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Logout</a></li>
+        </ul>
+    }
+}
+
+else
+{
+
+    <li class="dropdown" id="menuLogin">
+        <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">Login</a>
+        <div id="loginDrop" class="dropdown-menu">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <form class="form" id="formLogin">
+                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", id = "username", placeholder="Username"})
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", id = "password", placeholder = "Password"})
+
+                    
+                    <div class="checkbox">
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "rememberCheck" })
+                        @Html.LabelFor(m => m.RememberMe, new { @class = "rememberText" })
+                    </div>
+
+                    <input type="submit" id="btnLogin" value="Login" class="btn btn-default" />
+                    <a id="regDrop" href="@Url.Action("Register", "Account")">Register</a>
+                </form>
+            }
+        </div>
+    </li>
+}

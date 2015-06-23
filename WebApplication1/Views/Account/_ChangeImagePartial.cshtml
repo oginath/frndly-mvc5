@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNet.Identity
+@model WebApplication1.Models.ManageImageUserViewModel
+
+@using (Html.BeginForm("ManageImage", "Account", FormMethod.Post, new {enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4 class="formLabel">Change Picture</h4>
+    <hr />
+    <div class="formContainer">
+        <div class="well well-sm" id="regWell">
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserImage, "Picture", new { @class = "col-md-2 control-label", id = "userPicture" })
+                <div class="col-md-10">
+                    <input type="file" name="file" id="file" value="" accept="image/*" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" id="registerButtonCol">
+                    <input type="submit" value="Change Image" class="btn btn-default" id="registerButton" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

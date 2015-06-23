@@ -1,0 +1,33 @@
+﻿@using Microsoft.AspNet.Identity
+@model WebApplication1.Models.ManageInterestsUserViewModel
+
+@using (Html.BeginForm("ManageInterests", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <h4 class="formLabel">Change Interests</h4>
+    <hr />
+    <div class="formContainer">
+        <div class="well well-sm" id="regWell">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Interests, new { @class = "col-md-2 control-label", id = "interestsLabel" })
+                <div class="col-md-10" id="dropGroup">
+                    @{
+    for (int i = 0; i < 9; i++)
+    {
+                @Html.DropDownList("Interests", ViewBag.list as SelectList, new { @class = "dropclass" })
+                        <script>
+                            $(".dropclass").val("---");
+                        </script>
+    }
+                    }
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" id="registerButtonCol">
+                    <input type="submit" value="Change Interests" class="btn btn-default" id="registerButton" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

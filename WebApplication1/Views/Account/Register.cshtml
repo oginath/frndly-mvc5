@@ -1,0 +1,89 @@
+﻿@model WebApplication1.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="managePage">
+    <h2>@ViewBag.Title.</h2>
+
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4 class="formLabel">Create a new account</h4>
+        <hr />
+        @Html.ValidationSummary()
+        <div class="formContainer">
+            <div class="well well-sm" id="regWell">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "User Name" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Confirm Password" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", placeholder = "First Name" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", placeholder = "Last Name" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control", type = "date", placeholder = "Birth Date" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Gender, new { @class = "genderLabel" })
+                    <div class="col-md-10">
+                        @Html.LabelFor(m => m.Gender, "Male", new { @class = "genderText" })
+                        @Html.RadioButtonFor(m => m.Gender, "Male", new { @class = "genderRadio" })
+                        @Html.LabelFor(m => m.Gender, "Female", new { @class = "genderText" })
+                        @Html.RadioButtonFor(m => m.Gender, "Female", new { @class = "genderRadio" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Interests, new { @class = "col-md-2 control-label", id = "interestsLabel" })
+                    <div class="col-md-10" id="dropGroup">
+
+                        @{
+        for (int i = 0; i < 9; i++)
+        {
+            @Html.DropDownList("Interests", ViewBag.list as SelectList, new { @class = "dropclass"})
+            <script>
+                $(".dropclass").val("---");
+            </script>        
+        }
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserImage, "Picture", new { @class = "col-md-2 control-label", id = "userPicture" })
+                    <div class="col-md-10">
+                        <input type="file" name="file" id="file" value="" accept="image/*" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10" id="registerButtonCol">
+                        <input id="registerButton" type="submit" class="btn btn-default" value="Register" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
