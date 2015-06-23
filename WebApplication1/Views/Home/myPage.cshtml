@@ -10,7 +10,64 @@
 
             <p class="pageTitle">Your Stories</p>
 
+            @for (int i = 0; i < ViewBag.Posts.Count; i++)
+            {
+                <div class="post">
+                    <div class="postHead">
+                        <img class="postImage" src="@ViewBag.ImageMap[ViewBag.Users[i]]" />
+                        <p class="postName">
+                            <a class="postLink" href=@Url.Action("UserPage", "Home", new { userName = ViewBag.Users[i].UserName })>
+                                @ViewBag.Users[i].FirstName
+                                @ViewBag.Users[i].LastName
+                            </a>
+                        </p>
+                        <p class="postDate">@ViewBag.Posts[i].DateTime</p>
+                        <hr class="postHR" />
+                    </div>
+                    <div class="postBody">
+                        @ViewBag.Posts[i].PostContent
+                    </div>
+                    <div class="postFooter">
+                        <hr class="footerHR" />
+                        <a href=""><i id="thumbsUp" class="glyphicon glyphicon-thumbs-up"></i></a>
+                        <a href=""><i id="thumbsDown" class="glyphicon glyphicon-thumbs-down"></i></a>
+                    </div>
+                    <div class="likes">
+                        +1
+                    </div>
+                    @if (ViewBag.Posts[i].PostFile != null)
+                    {
+                        byte[] bytes = ViewBag.Posts[i].PostFile;
+                        string imageBase64Data = Convert.ToBase64String(bytes);
+                        string imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
+
+                        <a href="#" data-toggle="modal" data-picture-id="@imageDataURL" data-target="#ViewPictureModal"><i id="postFile" style="color: black;" class="glyphicon glyphicon-paperclip"></i></a>
+                    }
+                    else
+                    {
+                        <a href=""><i id="postFile" style="color: lightgray; pointer-events: none; cursor: default;" class="glyphicon glyphicon-paperclip"></i></a>
+                    }
+                </div>
+            }
         </div>
     </div>
 
 </div>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="ViewPictureModal">
+    <div class="modal-dialog modal-lg">
+        <div id="newStoryModal" class="modal-content">
+            <img id="postPicture" class="picture" src="" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#ViewPictureModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var image = button.data('picture-id')
+
+        var modal = $(this)
+        modal.find('.picture').attr("src", image)
+    })
+</script>

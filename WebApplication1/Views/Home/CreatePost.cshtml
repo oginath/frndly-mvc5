@@ -1,0 +1,34 @@
+﻿@model WebApplication1.Models.Post
+
+@using (Html.BeginForm("Create", "Posts", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.PostContent, new { @class = "newPostTextArea",placeholder= "This has been a great...."})
+                @Html.ValidationMessageFor(model => model.PostContent)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostFile, "Picture", new { @class = "control-label col-md-2", id = "postFileLabel" })
+            <div class="col-md-10">
+                <input type="file" name="file" id="file" value="" accept="image/*" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div id="btnCreateStory" class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

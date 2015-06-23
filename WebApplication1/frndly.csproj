@@ -160,19 +160,18 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506221428028_BirthDate.cs" />
-    <Compile Include="Migrations\201506221428028_BirthDate.Designer.cs">
-      <DependentUpon>201506221428028_BirthDate.cs</DependentUpon>
+    <Compile Include="Migrations\ApplicationDbContext\Configuration.cs" />
+    <Compile Include="Migrations\PostsDbContext\201506231622589_InitialCreate.cs" />
+    <Compile Include="Migrations\PostsDbContext\201506231622589_InitialCreate.Designer.cs">
+      <DependentUpon>201506231622589_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506230036269_Friends.cs" />
-    <Compile Include="Migrations\201506230036269_Friends.Designer.cs">
-      <DependentUpon>201506230036269_Friends.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Migrations\PostsDbContext\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\PostsModels.cs" />
     <Compile Include="Models\HomeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -276,6 +275,12 @@
     <Content Include="Views\Home\UserPage.cshtml" />
     <Content Include="Views\Home\myPage.cshtml" />
     <Content Include="Views\Home\frndify.cshtml" />
+    <Content Include="Views\Posts\Create.cshtml" />
+    <Content Include="Views\Posts\Delete.cshtml" />
+    <Content Include="Views\Posts\Details.cshtml" />
+    <Content Include="Views\Posts\Edit.cshtml" />
+    <Content Include="Views\Posts\Index.cshtml" />
+    <Content Include="Views\Home\CreatePost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -288,11 +293,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506221428028_BirthDate.resx">
-      <DependentUpon>201506221428028_BirthDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506230036269_Friends.resx">
-      <DependentUpon>201506230036269_Friends.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\PostsDbContext\201506231622589_InitialCreate.resx">
+      <DependentUpon>201506231622589_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

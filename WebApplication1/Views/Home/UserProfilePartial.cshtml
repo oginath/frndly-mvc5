@@ -23,57 +23,71 @@
                 </div>-->
             </div>
             <!-- END SIDEBAR USER TITLE -->
-            <!-- SIDEBAR MENU -->
-            <div class="profile-usermenu">
-                <ul class="nav">
-                    <li>
-                        <a class="btn showdetails" data-toggle="collapse" data-target="#viewContent" href=@Url.Action("myPage", "Home")>
-                            <i class="glyphicon glyphicon-picture"></i>
-                            Stories
-                        </a>
-                    </li>
-                    <li>
-                        <a class="btn showdetails" data-toggle="collapse" data-target="#viewFriends">
-                            <i class="glyphicon glyphicon-user"></i>
-                            Friendships&nbsp;&nbsp;&nbsp;@ViewBag.Friends.Count
-                        </a>
-                            <p class="collapse" id="viewFriends" style="color: black;">
-                        @foreach (var friend in ViewBag.Friends)
-                        {
-                            <a class="friendLink" href="@Url.Action("UserPage", "Home", new { userName = friend.UserName })">
-                                @((friend.FirstName as string).Trim())
-                                @(" ")
-                                @((friend.LastName as string).Trim())
+            <div class="profile-userbuttons">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-md">
+                New Story</button>         
+            </div>     
+                    <!-- SIDEBAR MENU -->
+                <div class="profile-usermenu">
+                    <ul id="profileList" class="nav">
+                        <li>
+                            <a class="btn showdetails" data-toggle="collapse" data-target="#viewContent" href=@Url.Action("myPage", "Home")>
+                                <i class="glyphicon glyphicon-picture"></i>
+                                Stories
                             </a>
-                                <br />
-                        }
-                            </p>
-                    </li>
-                    <li>
-                        <a class="btn showdetails" data-toggle="collapse" data-target="#viewInterests">
-                            <i class="glyphicon glyphicon-list"></i>
-                            Interests
-                        </a>
-                        <p class="collapse" id="viewInterests" style="color: black;">
-                            @{
-                                for (int i = 0; i < ViewBag.Interests.Length; i++)
+                        </li>
+                        <li>
+                            <a class="btn showdetails" data-toggle="collapse" data-target="#viewFriends">
+                                <i class="glyphicon glyphicon-user"></i>
+                                Friendships&nbsp;&nbsp;&nbsp;@ViewBag.Friends.Count
+                            </a>
+                            <p class="collapse" id="viewFriends" style="color: black;">
+                                @foreach (var friend in ViewBag.Friends)
                                 {
-                                    @ViewBag.Interests[i]
+                                    <a class="friendLink" href="@Url.Action("UserPage", "Home", new { userName = friend.UserName })">
+                                        @((friend.FirstName as string).Trim())
+                                        @(" ")
+                                        @((friend.LastName as string).Trim())
+                                    </a>
                                     <br />
-                                }}
-                        </p>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("Manage", "Account")">
-                            <i class=" glyphicon glyphicon-flag">
-                            </i>
-                            Manage Account
-                        </a>
-                    </li>
-                </ul>
+                                }
+                            </p>
+                        </li>
+                        <li>
+                            <a class="btn showdetails" data-toggle="collapse" data-target="#viewInterests">
+                                <i class="glyphicon glyphicon-list"></i>
+                                Interests
+                            </a>
+                            <p class="collapse" id="viewInterests" style="color: black;">
+                                @{
+                                    for (int i = 0; i < ViewBag.Interests.Length; i++)
+                                    {
+                                        @ViewBag.Interests[i]
+                                        <br />
+                                    }}
+                            </p>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Manage", "Account")">
+                                <i class=" glyphicon glyphicon-flag">
+                                </i>
+                                Manage Account
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- END MENU -->
             </div>
-            <!-- END MENU -->
-        </div>
     </div>
 </div>
 
+
+<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-md">
+        <div id="newStoryModal" class="modal-content">
+            <h3 style="color: rgb(88, 78, 127);">New Story</h3>
+            <hr/>
+            @Html.Partial("CreatePost", new WebApplication1.Models.Post())
+        </div>
+    </div>
+</div>

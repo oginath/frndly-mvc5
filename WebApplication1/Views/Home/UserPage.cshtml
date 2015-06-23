@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "UserPage";
     Layout = "~/Views/Shared/_LoggedLayout.cshtml";
 }
@@ -13,126 +12,141 @@
 
             <p class="pageTitle">@((ViewBag.userFirstName as string).Trim())'s Stories</p>
 
-            <div class="post">
-                <div class="postHead">
-                    <img class="postImage" src="~/Content/Images/JohnDoe.png" />
-                    <p class="postName">
-                        <a class="postLink" href="">
-                            John Doe
-                        </a>
-                    </p>
-                    <p class="postDate">@DateTime.Now</p>
-                    <hr class="postHR" />
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="postHead">
-                    <img class="postImage" src="~/Content/Images/JohnDoe.png" />
-                    <p class="postName">
-                        <a class="postLink" href="">
-                            Tom Sawyer
-                        </a>
-                    </p>
-                    <p class="postDate">@DateTime.Now</p>
-                    <hr class="postHR" />
-                </div>
-            </div>
-            <div class="post">
-                <div class="postHead">
-                    <img class="postImage" src="~/Content/Images/JohnDoe.png" />
-                    <p class="postName">
-                        <a class="postLink" href="">
-                            Jane Doe
-                        </a>
-                    </p>
-                    <p class="postDate">@DateTime.Now</p>
-                    <hr class="postHR" />
-                </div>
-            </div>
-
-
-        </div>
-        <div class="row profile hidden-xs">
-            <div class="col-md-3" id="friendPage">
-                <div class="profile-sidebar">
-                    <!-- SIDEBAR USERPIC -->
-                    <div class="profile-userpic">
-                        <img src="@ViewBag.userImage" style="width:150px; height: 150px;"
-                             class="img-responsive" alt="" />
-                    </div>
-                    <!-- END SIDEBAR USERPIC -->
-                    <!-- SIDEBAR USER TITLE -->
-                    <div class="profile-usertitle">
-                        <div class="profile-usertitle-name">
-                            @ViewBag.userFirstName
-                            @ViewBag.userLastName
+            <div style="margin: 0;" class=" row profile hidden-xs">
+                <div class="col-md-3" id="friendPage">
+                    <div class="profile-sidebar">
+                        <!-- SIDEBAR USERPIC -->
+                        <div class="profile-userpic">
+                            <img src="@ViewBag.userImage" style="width:150px; height: 150px;"
+                                 class="img-responsive" alt="" />
                         </div>
-                        <!--<div class="profile-usertitle-job">
-                            Developer
-                        </div>-->
-                    </div>
-                    <!-- END SIDEBAR USER TITLE -->
-                    <div class="profile-userbuttons">
-                        @if (!ViewBag.isFriend) 
-                        {
-                             using (Html.BeginForm("AddFriend", "Home", FormMethod.Post))
-                             { 
-                                 <button name="friendUserName" value="@ViewBag.UserName" id="friendshipBtn" type="submit" class="btn btn-success btn-md">Start Friendship</button>
-                             }
-                        }
-                        else
-                        {
-                            <p style="color: rgb(177, 156, 254); ">Friends</p>
-                            using (Html.BeginForm("RemoveFriend", "Home", FormMethod.Post))
-                             { 
-                                 <button name="friendUserName" value="@ViewBag.UserName" id="friendshipBtn" type="submit" class="btn btn-success btn-md">End Friendship</button>
-                             }
-                        }
-                    </div>
-                    <!-- SIDEBAR MENU -->
-                    <div class="profile-usermenu">
-                        <ul class="nav">
-                            <li>
-                                <a class="btn showdetails" data-toggle="collapse" data-target="#viewUserFriends">
-                                    <i class="glyphicon glyphicon-user"></i>
-                                    Friendships&nbsp;&nbsp;&nbsp;&nbsp;@ViewBag.Friends.Count
-                                </a>
-                                <p class="collapse" id="viewUserFriends" style="color: black;">
-                                    @foreach (var friend in ViewBag.Friends)
-                                    {
-                                        <a class="friendLink" href="@Url.Action("UserPage", "Home", new { userName = friend.UserName })">
-                                        @((friend.FirstName as string).Trim())
-                                        @(" ")
-                                        @((friend.LastName as string).Trim())
-                                        </a>
-                                        <br />
-                                    }
-                                </p>
-                            </li>
-                            <li>
-                                <a class="btn showdetails" data-toggle="collapse" data-target="#viewUserInterests">
-                                    <i class="glyphicon glyphicon-list"></i>
-                                    Interests
-                                </a>
-                                <p class="collapse" id="viewUserInterests" style="color: black;">
-                                    @{
-                                        for (int i = 0; i < ViewBag.userInterests.Length; i++)
+                        <!-- END SIDEBAR USERPIC -->
+                        <!-- SIDEBAR USER TITLE -->
+                        <div class="profile-usertitle">
+                            <div class="profile-usertitle-name">
+                                @ViewBag.userFirstName
+                                @ViewBag.userLastName
+                            </div>
+                            <!--<div class="profile-usertitle-job">
+                        Developer
+                    </div>-->
+                        </div>
+                        <!-- END SIDEBAR USER TITLE -->
+                        <div class="profile-userbuttons">
+                            @if (!ViewBag.isFriend)
+                            {
+                                using (Html.BeginForm("AddFriend", "Home", FormMethod.Post))
+                                {
+                                    <button name="friendUserName" value="@ViewBag.UserName" id="friendshipBtn" type="submit" class="btn btn-success btn-md">Start Friendship</button>
+                                }
+                            }
+                            else
+                            {
+                                <p style="color: rgb(177, 156, 254); ">Friends</p>
+                                using (Html.BeginForm("RemoveFriend", "Home", FormMethod.Post))
+                                {
+                                    <button name="friendUserName" value="@ViewBag.UserName" id="friendshipBtn" type="submit" class="btn btn-success btn-md">End Friendship</button>
+                                }
+                            }
+                        </div>
+                        <!-- SIDEBAR MENU -->
+                        <div class="profile-usermenu">
+                            <ul class="nav">
+                                <li>
+                                    <a class="btn showdetails" data-toggle="collapse" data-target="#viewUserFriends">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                        Friendships&nbsp;&nbsp;&nbsp;&nbsp;@ViewBag.Friends.Count
+                                    </a>
+                                    <p class="collapse" id="viewUserFriends" style="color: black;">
+                                        @foreach (var friend in ViewBag.Friends)
                                         {
-                                            @ViewBag.userInterests[i]
+                                            <a class="friendLink" href="@Url.Action("UserPage", "Home", new { userName = friend.UserName })">
+                                                @((friend.FirstName as string).Trim())
+                                                @(" ")
+                                                @((friend.LastName as string).Trim())
+                                            </a>
                                             <br />
-                                        }}
-                                </p>
-                            </li>
-                        </ul>
+                                        }
+                                    </p>
+                                </li>
+                                <li>
+                                    <a class="btn showdetails" data-toggle="collapse" data-target="#viewUserInterests">
+                                        <i class="glyphicon glyphicon-list"></i>
+                                        Interests
+                                    </a>
+                                    <p class="collapse" id="viewUserInterests" style="color: black;">
+                                        @{
+                                            for (int i = 0; i < ViewBag.userInterests.Length; i++)
+                                            {
+                                                @ViewBag.userInterests[i]
+                                                <br />
+                                            }}
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- END MENU -->
                     </div>
-                    <!-- END MENU -->
                 </div>
             </div>
+            @for (int i = 0; i < ViewBag.Posts.Count; i++)
+            {
+                <div class="post">
+                    <div class="postHead">
+                        <img class="postImage" src="@ViewBag.ImageMap[ViewBag.Users[i]]" />
+                        <p class="postName">
+                            <a class="postLink" href=@Url.Action("UserPage", "Home", new { userName = ViewBag.Users[i].UserName })>
+                                @ViewBag.Users[i].FirstName
+                                @ViewBag.Users[i].LastName
+                            </a>
+                        </p>
+                        <p class="postDate">@ViewBag.Posts[i].DateTime</p>
+                        <hr class="postHR" />
+                    </div>
+                    <div class="postBody">
+                        @ViewBag.Posts[i].PostContent
+                    </div>
+                    <div class="postFooter">
+                        <hr class="footerHR" />
+                        <a href=""><i id="thumbsUp" class="glyphicon glyphicon-thumbs-up"></i></a>
+                        <a href=""><i id="thumbsDown" class="glyphicon glyphicon-thumbs-down"></i></a>
+                    </div>
+                    <div class="likes">
+                        +1
+                    </div>
+                    @if (ViewBag.Posts[i].PostFile != null)
+                    {
+                        byte[] bytes = ViewBag.Posts[i].PostFile;
+                        string imageBase64Data = Convert.ToBase64String(bytes);
+                        string imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
+
+                        <a href="#" data-toggle="modal" data-picture-id="@imageDataURL" data-target="#ViewPictureModal"><i id="postFile" style="color: black;" class="glyphicon glyphicon-paperclip"></i></a>
+                    }
+                    else
+                    {
+                        <a href=""><i id="postFile" style="color: lightgray; pointer-events: none; cursor: default;" class="glyphicon glyphicon-paperclip"></i></a>
+                    }
+                </div>
+            }
         </div>
 
     </div>
-
-
-
 </div>
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="ViewPictureModal">
+    <div class="modal-dialog modal-lg">
+        <div id="newStoryModal" class="modal-content">
+            <img id="postPicture" class="picture" src="" />
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#ViewPictureModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var image = button.data('picture-id')
+
+        var modal = $(this)
+        modal.find('.picture').attr("src", image)
+    })
+</script>

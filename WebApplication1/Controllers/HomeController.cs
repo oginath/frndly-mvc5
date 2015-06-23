@@ -20,6 +20,55 @@ namespace WebApplication1.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
+                ApplicationDbContext userContext = new ApplicationDbContext();
+                PostsDbContext postsContext = new PostsDbContext();
+                var currentUserID = User.Identity.GetUserId();
+
+                var friendsList = (from f in userContext.Friends where f.UserID == currentUserID select f).ToList();
+                List<string> list = (from f in friendsList select f.FriendID).ToList();
+
+                List<Post> postList = new List<Post>();
+
+                postList.AddRange((from p in postsContext.Posts where p.UserID == currentUserID select p).ToList());
+
+                foreach (string friend in list)
+                {
+                        postList.AddRange((from p in postsContext.Posts where p.UserID == friend select p).ToList());
+                }
+
+                postList  = postList.OrderBy(d => d.DateTime).ToList();
+
+                List<ApplicationUser> userList = new List<ApplicationUser>();
+
+                foreach (var item in postList)
+                {
+                    userList.Add(userContext.Users.Find(item.UserID));
+                }
+
+                userList.Reverse();
+                postList.Reverse();
+
+                List<string> imageDataURLs = new List<string>();
+
+                string imageBase64Data;
+                string imageDataURL;
+                Hashtable map = new Hashtable();
+
+                foreach (ApplicationUser user in userList)
+                {
+                    if (map.ContainsKey(user))
+                        continue;
+                    imageBase64Data = Convert.ToBase64String(user.UserImage);
+                    imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
+
+                    map.Add(user, imageDataURL);
+                }
+
+                ViewBag.Users = userList;
+                ViewBag.Posts = postList;
+                ViewBag.ImageMap = map;
+              
+
                 return View();
             }
 
@@ -198,6 +247,40 @@ namespace WebApplication1.Controllers
                 ViewBag.isFriend = flag;
                 ViewBag.UserName = potentialUser.UserName;
 
+
+                PostsDbContext postsContext = new PostsDbContext();
+
+                List<Post> postList = new List<Post>();
+
+                postList.AddRange((from p in postsContext.Posts where p.UserID == potentialUserID select p).ToList());
+
+                postList = postList.OrderBy(d => d.DateTime).ToList();
+
+                List<ApplicationUser> userList = new List<ApplicationUser>();
+
+                foreach (var item in postList)
+                {
+                    userList.Add(context.Users.Find(item.UserID));
+                }
+
+                userList.Reverse();
+                postList.Reverse();
+
+                Hashtable map = new Hashtable();
+
+                foreach (ApplicationUser user in userList)
+                {
+                    if (map.ContainsKey(user))
+                        continue;
+                    imageBase64Data = Convert.ToBase64String(user.UserImage);
+                    imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
+
+                    map.Add(user, imageDataURL);
+                }
+
+                ViewBag.Users = userList;
+                ViewBag.Posts = postList;
+                ViewBag.ImageMap = map;
             }
 
             return View();
@@ -238,6 +321,47 @@ namespace WebApplication1.Controllers
 
         public ActionResult myPage()
         {
+
+            ApplicationDbContext userContext = new ApplicationDbContext();
+            PostsDbContext postsContext = new PostsDbContext();
+            var currentUserID = User.Identity.GetUserId();
+
+            List<Post> postList = new List<Post>();
+
+            postList.AddRange((from p in postsContext.Posts where p.UserID == currentUserID select p).ToList());
+
+            postList = postList.OrderBy(d => d.DateTime).ToList();
+
+            List<ApplicationUser> userList = new List<ApplicationUser>();
+
+            foreach (var item in postList)
+            {
+                userList.Add(userContext.Users.Find(item.UserID));
+            }
+
+            userList.Reverse();
+            postList.Reverse();
+
+            string imageBase64Data;
+            string imageDataURL;
+
+            Hashtable map = new Hashtable();
+            
+            foreach (ApplicationUser user in userList)
+            {
+                if (map.ContainsKey(user))
+                    continue;
+                imageBase64Data = Convert.ToBase64String(user.UserImage);
+                imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
+
+                map.Add(user, imageDataURL);
+            }
+
+            ViewBag.Users = userList;
+            ViewBag.Posts = postList;
+            ViewBag.ImageMap = map;
+
+            
             return View();
         }
 
