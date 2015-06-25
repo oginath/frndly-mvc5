@@ -1,0 +1,53 @@
+﻿@model WebApplication1.Models.Post
+
+
+@using (Html.BeginForm("Edit", "Posts", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+      @Html.ValidationSummary(true)
+
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.PostContent, new { @class = "newPostTextArea",placeholder = Model.PostContent})
+                @Html.ValidationMessageFor(model => model.PostContent)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostFile, "Picture", new { @class = "control-label col-md-2", id = "postFileLabel" })
+            <div class="col-md-10">
+                <input type="file" name="file" id="file" value="" style="float:left" accept="image/*" />
+                @if (Model.PostFile != null) 
+                { 
+                <button type="button" id="deleteButton" style="float:left">Delete Current Picture</button>
+                }
+                <input type="text" id="passer" name="isDeleted" value="false" hidden="hidden"/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div id="btnCreateStory" class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+
+    $('#deleteButton').click(function () {
+        $('#postFileLabel').hide()
+        $('#file').hide()
+        $(this).hide()
+        $('#passer').attr("value", "true");
+    })
+
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

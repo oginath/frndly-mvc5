@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
 
                 List<Post> postList = new List<Post>();
 
-                postList.AddRange((from p in postsContext.Posts where p.UserID == currentUserID select p).ToList());
+                postList.AddRange((from p in postsContext.Posts where p.UserID == currentUserID && DbFunctions.DiffDays(p.DateTime, DateTime.Now) <= 3 select p).ToList());
 
                 foreach (string friend in list)
                 {
@@ -52,23 +52,35 @@ namespace WebApplication1.Controllers
 
                 string imageBase64Data;
                 string imageDataURL;
-                Hashtable map = new Hashtable();
+                Hashtable UserPictureMap = new Hashtable();
+                Hashtable PostPictureMap = new Hashtable();
 
                 foreach (ApplicationUser user in userList)
                 {
-                    if (map.ContainsKey(user))
+                    if (UserPictureMap.ContainsKey(user))
                         continue;
                     imageBase64Data = Convert.ToBase64String(user.UserImage);
                     imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
 
-                    map.Add(user, imageDataURL);
+                    UserPictureMap.Add(user, imageDataURL);
                 }
 
+                foreach (Post post in postList)
+                {
+                    if (PostPictureMap.ContainsKey(post))
+                        continue;
+                    if (post.PostFile != null) { 
+                        imageBase64Data = Convert.ToBase64String(post.PostFile);
+                        imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
+
+                        PostPictureMap.Add(post, imageDataURL);
+                    }
+                }
                 ViewBag.Users = userList;
                 ViewBag.Posts = postList;
-                ViewBag.ImageMap = map;
-              
-
+                ViewBag.ImageMap = UserPictureMap;
+                ViewBag.PostPictureMap = PostPictureMap;
+                
                 return View();
             }
 
@@ -168,7 +180,6 @@ namespace WebApplication1.Controllers
 
                 distinctPotentialUsers.AddRange(potentialUsers.Distinct());
 
-
             }
 
             model.searchResult = distinctPotentialUsers;
@@ -190,7 +201,6 @@ namespace WebApplication1.Controllers
 
         public ActionResult UserPage(string userName)
         {
-
             if (userName == User.Identity.GetUserName())
             {
                 return RedirectToAction("myPage", "Home");
@@ -247,12 +257,11 @@ namespace WebApplication1.Controllers
                 ViewBag.isFriend = flag;
                 ViewBag.UserName = potentialUser.UserName;
 
-
                 PostsDbContext postsContext = new PostsDbContext();
 
                 List<Post> postList = new List<Post>();
 
-                postList.AddRange((from p in postsContext.Posts where p.UserID == potentialUserID select p).ToList());
+                postList.AddRange((from p in postsContext.Posts where p.UserID == potentialUserID && DbFunctions.DiffDays(p.DateTime, DateTime.Now) <= 3 select p).ToList());
 
                 postList = postList.OrderBy(d => d.DateTime).ToList();
 
@@ -266,21 +275,36 @@ namespace WebApplication1.Controllers
                 userList.Reverse();
                 postList.Reverse();
 
-                Hashtable map = new Hashtable();
+                Hashtable UserPictureMap = new Hashtable();
+                Hashtable PostPictureMap = new Hashtable();
 
                 foreach (ApplicationUser user in userList)
                 {
-                    if (map.ContainsKey(user))
+                    if (UserPictureMap.ContainsKey(user))
                         continue;
                     imageBase64Data = Convert.ToBase64String(user.UserImage);
                     imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
 
-                    map.Add(user, imageDataURL);
+                    UserPictureMap.Add(user, imageDataURL);
                 }
 
+                foreach (Post post in postList)
+                {
+                    if (PostPictureMap.ContainsKey(post))
+                        continue;
+                    if (post.PostFile != null)
+                    {
+                        imageBase64Data = Convert.ToBase64String(post.PostFile);
+                        imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
+
+                        PostPictureMap.Add(post, imageDataURL);
+                    }
+                }
                 ViewBag.Users = userList;
                 ViewBag.Posts = postList;
-                ViewBag.ImageMap = map;
+                ViewBag.ImageMap = UserPictureMap;
+                ViewBag.PostPictureMap = PostPictureMap;
+
             }
 
             return View();
@@ -321,14 +345,13 @@ namespace WebApplication1.Controllers
 
         public ActionResult myPage()
         {
-
             ApplicationDbContext userContext = new ApplicationDbContext();
             PostsDbContext postsContext = new PostsDbContext();
             var currentUserID = User.Identity.GetUserId();
 
             List<Post> postList = new List<Post>();
 
-            postList.AddRange((from p in postsContext.Posts where p.UserID == currentUserID select p).ToList());
+            postList.AddRange((from p in postsContext.Posts where p.UserID == currentUserID && DbFunctions.DiffDays(p.DateTime, DateTime.Now) <= 3 select p).ToList());
 
             postList = postList.OrderBy(d => d.DateTime).ToList();
 
@@ -345,23 +368,36 @@ namespace WebApplication1.Controllers
             string imageBase64Data;
             string imageDataURL;
 
-            Hashtable map = new Hashtable();
-            
+            Hashtable UserPictureMap = new Hashtable();
+            Hashtable PostPictureMap = new Hashtable();
+
             foreach (ApplicationUser user in userList)
             {
-                if (map.ContainsKey(user))
+                if (UserPictureMap.ContainsKey(user))
                     continue;
                 imageBase64Data = Convert.ToBase64String(user.UserImage);
                 imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
 
-                map.Add(user, imageDataURL);
+                UserPictureMap.Add(user, imageDataURL);
             }
 
+            foreach (Post post in postList)
+            {
+                if (PostPictureMap.ContainsKey(post))
+                    continue;
+                if (post.PostFile != null)
+                {
+                    imageBase64Data = Convert.ToBase64String(post.PostFile);
+                    imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
+
+                    PostPictureMap.Add(post, imageDataURL);
+                }
+            }
             ViewBag.Users = userList;
             ViewBag.Posts = postList;
-            ViewBag.ImageMap = map;
+            ViewBag.ImageMap = UserPictureMap;
+            ViewBag.PostPictureMap = PostPictureMap;
 
-            
             return View();
         }
 
@@ -396,7 +432,6 @@ namespace WebApplication1.Controllers
 
                 pq.Add(new ComparableInterest() { user = aUser, intersect = Intersect });
                 pq.Sort(comp);
-
             }
 
             pq.Reverse();
@@ -415,7 +450,6 @@ namespace WebApplication1.Controllers
 
                 ImageDataURLs.Add(imageDataURL);
             }
-
             ViewBag.Top = topList;
             ViewBag.imageDataURLs = ImageDataURLs;
 
@@ -426,20 +460,7 @@ namespace WebApplication1.Controllers
         {
             public ApplicationUser user;
             public int intersect;
-
         }
-
-        public class Class2
-        {
-            public void test()
-            {
-                List<ComparableInterest> classList = new List<ComparableInterest>();
-                //add some data to the list
-                InterestComparer comp = new InterestComparer();
-                classList.Sort(comp);
-            }
-        }
-
         public class InterestComparer : Comparer<ComparableInterest>
         {
             public override int Compare(ComparableInterest x, ComparableInterest y)

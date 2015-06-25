@@ -24,8 +24,9 @@
             </div>
             <!-- END SIDEBAR USER TITLE -->
             <div class="profile-userbuttons">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-md">
-                New Story</button>         
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newStoryModalTarget">
+                    New Story
+                </button>         
             </div>     
                     <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
@@ -33,7 +34,7 @@
                         <li>
                             <a class="btn showdetails" data-toggle="collapse" data-target="#viewContent" href=@Url.Action("myPage", "Home")>
                                 <i class="glyphicon glyphicon-picture"></i>
-                                Stories
+                              Your Stories
                             </a>
                         </li>
                         <li>
@@ -82,11 +83,11 @@
 </div>
 
 
-<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+<div class="modal fade bs-example-modal-md" tabindex="-1" id="newStoryModalTarget" role="dialog" aria-labelledby="mySmallModalLabel">
     <div class="modal-dialog modal-md">
         <div id="newStoryModal" class="modal-content">
             <h3 style="color: rgb(88, 78, 127);">New Story</h3>
-            <hr/>
+            <hr />
             @Html.Partial("CreatePost", new WebApplication1.Models.Post())
         </div>
     </div>

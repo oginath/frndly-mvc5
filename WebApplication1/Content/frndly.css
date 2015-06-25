@@ -846,8 +846,8 @@ h4.formLabel{
 
 .postDate{
     max-width: 164px;
-  margin-left: 233px;
-  padding-top: 18px;
+  margin-left: 315px;
+    padding-top: 18px;
   font-size: 12px;
 }
 
@@ -912,6 +912,12 @@ h4.formLabel{
   padding: 15px;
 }
 
+.editpost{
+    
+      color: black;
+  padding: 15px;
+}
+
 .newPostTextArea{
       margin: 0px;
   width: 570px;
@@ -930,7 +936,14 @@ h4.formLabel{
 }
 
 #postPicture{
-    max-width: 100% !important;
-  width: auto !important;
-  height: auto !important;
+  max-width: 100%!important;
+  width: auto!important;
+  height: auto!important;
+}
+
+#deletePostModal{
+      color: black;
+  padding: 80px;
+    margin-top: 200px;
+
 }

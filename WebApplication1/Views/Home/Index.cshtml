@@ -1,4 +1,5 @@
 ﻿@using WebApplication1.Models
+@using Microsoft.AspNet.Identity;
 @{
     Layout = "~/Views/Shared/_LoggedLayout.cshtml";
 }
@@ -22,7 +23,7 @@
                             @ViewBag.Users[i].LastName
                         </a>
                     </p>
-                        <p class="postDate">@ViewBag.Posts[i].DateTime</p>
+                    <p title="@ViewBag.Posts[i].DateTime" class="postDate">@Util.TimeAgo(ViewBag.Posts[i].DateTime)</p>
                     <hr class="postHR" />
                 </div>
                 <div class="postBody">
@@ -38,15 +39,16 @@
                 </div>
                 @if (ViewBag.Posts[i].PostFile != null)
                 {
-                    byte[] bytes = ViewBag.Posts[i].PostFile;
-                    string imageBase64Data = Convert.ToBase64String(bytes);
-                    string imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
-                        
-               <a href="#"  data-toggle="modal" data-picture-id="@imageDataURL" data-target="#ViewPictureModal"><i id="postFile" style="color: black;" class="glyphicon glyphicon-paperclip"></i></a>
+                <a href="#" data-toggle="modal" data-target="#ViewPictureModal" data-picture-id="@ViewBag.PostPictureMap[ViewBag.Posts[i]]"><i id="postFile" style="color: black;" class="glyphicon glyphicon-paperclip"></i></a>
                 }
                 else
                 {
                     <a href=""><i id="postFile" style="color: lightgray; pointer-events: none; cursor: default;" class="glyphicon glyphicon-paperclip"></i></a>
+                }
+                @if (ViewBag.Posts[i].UserID == User.Identity.GetUserId())
+                {
+                <a href="#" data-toggle="modal" data-target="#EditPostModal"   class="editPost"   data-url="@Url.Action("Edit", "Posts", new {id = ViewBag.Posts[i].ID})"><i id="postFile" style="color: black;" class="glyphicon glyphicon-option-vertical"></i></a>
+                <a href="#" data-toggle="modal" data-target="#DeletePostModal" class="deletePost" data-url="@Url.Action("Delete", "Posts", new {id = ViewBag.Posts[i].ID})"><i id="postFile" style="color: black;" class="glyphicon glyphicon-trash"></i></a>
                 }
             </div>
             }
@@ -63,12 +65,21 @@
     </div>
 </div>
 
-<script>
-    $('#ViewPictureModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) 
-        var image = button.data('picture-id')
+<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="EditPostModal">
+    <div class="modal-dialog modal-md">
+        <div id="" class="modal-content">
+            <h3 style="color: rgb(88, 78, 127);">Edit Story</h3>
+            <hr />
+            <div id="editPostModal" class="editpost">
+            </div>
+        </div>
+    </div>
+</div>
 
-        var modal = $(this)
-        modal.find('.picture').attr("src", image)
-    })
-</script>
+<div class="modal fade bs-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" id="DeletePostModal">
+    <div class="modal-dialog modal-md">
+        <div id="deletePostModal" class="modal-content">
+        </div>
+    </div>
+</div>
+

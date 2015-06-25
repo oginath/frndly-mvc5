@@ -1,8 +1,9 @@
-﻿@{
+﻿@using Microsoft.AspNet.Identity;
+@using WebApplication1.Models
+@{
     ViewBag.Title = "UserPage";
     Layout = "~/Views/Shared/_LoggedLayout.cshtml";
 }
-
 
 <div>
     <div class="mainContainer">
@@ -100,7 +101,7 @@
                                 @ViewBag.Users[i].LastName
                             </a>
                         </p>
-                        <p class="postDate">@ViewBag.Posts[i].DateTime</p>
+                        <p title="@ViewBag.Posts[i].DateTime" class="postDate">@Util.TimeAgo(ViewBag.Posts[i].DateTime)</p>
                         <hr class="postHR" />
                     </div>
                     <div class="postBody">
@@ -116,16 +117,12 @@
                     </div>
                     @if (ViewBag.Posts[i].PostFile != null)
                     {
-                        byte[] bytes = ViewBag.Posts[i].PostFile;
-                        string imageBase64Data = Convert.ToBase64String(bytes);
-                        string imageDataURL = string.Format("data:image/png;base64,{0}", imageBase64Data);
-
-                        <a href="#" data-toggle="modal" data-picture-id="@imageDataURL" data-target="#ViewPictureModal"><i id="postFile" style="color: black;" class="glyphicon glyphicon-paperclip"></i></a>
+                        <a href="#" data-toggle="modal" data-target="#ViewPictureModal" data-picture-id="@ViewBag.PostPictureMap[ViewBag.Posts[i]]"><i id="postFile" style="color: black;" class="glyphicon glyphicon-paperclip"></i></a>
                     }
                     else
                     {
                         <a href=""><i id="postFile" style="color: lightgray; pointer-events: none; cursor: default;" class="glyphicon glyphicon-paperclip"></i></a>
-                    }
+                    }                  
                 </div>
             }
         </div>
@@ -149,4 +146,16 @@
         var modal = $(this)
         modal.find('.picture').attr("src", image)
     })
+
+    $('#EditPostModal').on('show.bs.modal', function (event) {
+
+    })
+
+    $('#deletePost').click(function () {
+        var url = $(this).data('url');
+
+        $.get(url, function (data) {
+            $('#deletePostModal').html(data);
+        });
+    });
 </script>

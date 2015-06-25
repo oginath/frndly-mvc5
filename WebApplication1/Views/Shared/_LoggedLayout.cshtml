@@ -118,5 +118,32 @@
         </a>
     </div>
 
+
+    <script>
+        $('#ViewPictureModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var image = button.data('picture-id')
+
+            var modal = $(this)
+            modal.find('.picture').attr("src", image)
+        })
+
+        $('.editPost').click(function () {
+            var url = $(this).data('url');
+
+            $.get(url, function (data) {
+                $('#editPostModal').html(data);
+            });
+        })
+
+        $('.deletePost').click(function () {
+            var url = $(this).data('url');
+
+            $.get(url, function (data) {
+                $('#deletePostModal').html(data);
+            });
+        })
+    </script>
+
 </body>
 </html>
