@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_LoggedLayout.cshtml";
+}
+
+<div>
+    <div class="mainContainer">
+        <div style="width: 50px; float: left;"></div>
+        <div style="width: 50px; float: right;"></div>
+        <div style="margin-left: 50px; margin-right: 50px;">
+
+            <p class="pageTitle">Here are some awsome people you should know better :)</p>
+
+            @{for (int i = 0; i < @ViewBag.Top.Count; i++)
+                {
+                <div class="post">
+                    <img class="searchImage" src="@ViewBag.imageDataURLs[i]" />
+
+                    <p class="searchName">
+                        <a class="searchLink" href=@Url.Action("UserPage", "Home", new { userName = ViewBag.Top[i].UserName })>
+                            @ViewBag.Top[i].FirstName @ViewBag.Top[i].LastName
+                        </a>
+                    </p>
+
+                </div>
+                }
+            }
+
+        </div>
+    </div>
+
+</div>

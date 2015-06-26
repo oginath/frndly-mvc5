@@ -551,8 +551,8 @@ aside #myfront {
 }
 
 #loginDrop {
-    padding: 17px;
-    margin-top: 19px;
+    padding: 18px;
+    margin-top: 18px;
     padding-bottom: 10px;
 }
 
@@ -752,7 +752,7 @@ h4.formLabel{
   margin-top: 40px;
   position: relative;
   border: 1px solid gray;
-  box-shadow: 2px 2px 2px gray;
+  box-shadow: 1px 1px 3px gray;
 }
 
 @media (max-width: 1200px) {
@@ -989,4 +989,35 @@ h4.formLabel{
 
 .navbar-default{
     background-color: rgba(119, 136, 153, 0.7);
+}
+
+#friendProfile{
+    right:0;
+}
+
+
+@media (max-width: 1200px) {
+    #friendProfile {
+
+        width:28%;
+        right:0;
+    }
+}
+
+@media(max-width:767px) {
+    .mainContainer{
+        width:100%;
+    }
+    .profile-sidebar{
+        display:none;
+    }
+    .post{
+         width:100%;
+         min-height: 260px;
+         max-height: 260px;
+    }
+    #logout{
+        margin-left:15px;
+    }
+
 }
