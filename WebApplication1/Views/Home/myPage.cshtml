@@ -33,7 +33,6 @@
                         <hr class="footerHR" />
                         <a href=""><i id="thumbsUp" class="glyphicon glyphicon-thumbs-up"></i></a>
                         <a href=""><i id="thumbsDown" class="glyphicon glyphicon-thumbs-down"></i></a>
-                    </div>
                     <div class="likes">
                         +1
                     </div>
@@ -47,6 +46,7 @@
                     }
                     <a href="#" data-toggle="modal" data-target="#EditPostModal" class="editPost" data-url="@Url.Action("Edit", "Posts", new {id = ViewBag.Posts[i].ID})"><i id="postFile" style="color: black;" class="glyphicon glyphicon-option-vertical"></i></a>
                     <a href="#" data-toggle="modal" data-target="#DeletePostModal" class="deletePost" data-url="@Url.Action("Delete", "Posts", new {id = ViewBag.Posts[i].ID})"><i id="postFile" style="color: black;" class="glyphicon glyphicon-trash"></i></a>
+                    </div>
                 </div>
             }
         </div>

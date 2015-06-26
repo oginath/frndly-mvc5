@@ -60,7 +60,7 @@
                         @{
         for (int i = 0; i < 9; i++)
         {
-            @Html.DropDownList("Interests", ViewBag.list as SelectList, new { @class = "dropclass"})
+            @Html.DropDownList("Interests", ViewBag.list as SelectList, new { @class = "dropclass", style="border-radius:5px;"})
             <script>
                 $(".dropclass").val("---");
             </script>        
