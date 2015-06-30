@@ -33,7 +33,7 @@ namespace WebApplication1.Controllers
 
                 foreach (string friend in list)
                 {
-                        postList.AddRange((from p in postsContext.Posts where p.UserID == friend select p).ToList());
+                    postList.AddRange((from p in postsContext.Posts where p.UserID == friend && DbFunctions.DiffDays(p.DateTime, DateTime.Now) <= 3 select p).ToList());
                 }
 
                 postList  = postList.OrderBy(d => d.DateTime).ToList();
@@ -261,7 +261,7 @@ namespace WebApplication1.Controllers
 
                 List<Post> postList = new List<Post>();
 
-                postList.AddRange((from p in postsContext.Posts where p.UserID == potentialUserID && DbFunctions.DiffDays(p.DateTime, DateTime.Now) <= 3 select p).ToList());
+                postList.AddRange((from p in postsContext.Posts where p.UserID == potentialUserID select p).ToList());
 
                 postList = postList.OrderBy(d => d.DateTime).ToList();
 
@@ -351,7 +351,7 @@ namespace WebApplication1.Controllers
 
             List<Post> postList = new List<Post>();
 
-            postList.AddRange((from p in postsContext.Posts where p.UserID == currentUserID && DbFunctions.DiffDays(p.DateTime, DateTime.Now) <= 3 select p).ToList());
+            postList.AddRange((from p in postsContext.Posts where p.UserID == currentUserID select p).ToList());
 
             postList = postList.OrderBy(d => d.DateTime).ToList();
 

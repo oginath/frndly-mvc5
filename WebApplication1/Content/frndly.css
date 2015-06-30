@@ -572,7 +572,7 @@ aside #myfront {
 }
 
 .profile-sidebar {
-    min-height: 800px;
+    height: 100%;
     max-width: 270px;
     width: 20%;
     position: fixed;
@@ -782,18 +782,21 @@ h4.formLabel{
 }
 
 .searchName{
-      margin: 10px;
-  margin-right: 55px;
-  margin-top: 23%;
+     margin-left: 30%;
+  width: 70%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .searchImage{
-      width: 120px;
+    width: 120px;
   height: 120px;
-  float: left;
-  margin: 10px;
-  margin-top: 13%;
-  margin-left: 50px;
+  padding: 2px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 10%;
 }
 
 .mainContainer{
@@ -913,10 +916,10 @@ h4.formLabel{
  }
 
 #thumbsUp:hover{
-    color:mediumblue;
+    color:rgb(177, 159, 251);
 }
 #thumbsDown:hover{
-    color:red;
+    color:rgb(215, 111, 111);;
 }
 
 .footerHR{
@@ -1020,4 +1023,17 @@ h4.formLabel{
         margin-left:15px;
     }
 
+}
+
+.noPosts{
+  padding:2px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+}
+
+.newStoryLink, .newStoryLink:focus{
+    color: rgb(177, 159, 251)!important;
 }

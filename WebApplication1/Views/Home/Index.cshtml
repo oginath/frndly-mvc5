@@ -11,46 +11,54 @@
         <div style="margin-left: 50px; margin-right: 50px;">
 
             <p class="pageTitle">Stories</p>
-
-            @for(int i = 0; i < ViewBag.Posts.Count; i++)
-            { 
-            <div class="post">
-                <div class="postHead">
-                    <img class="postImage" src="@ViewBag.ImageMap[ViewBag.Users[i]]" />
-                    <p class="postName">
-                        <a class="postLink" href=@Url.Action("UserPage", "Home", new { userName = ViewBag.Users[i].UserName })>
-                            @ViewBag.Users[i].FirstName
-                            @ViewBag.Users[i].LastName
-                        </a>
-                    </p>
-                    <p title="@ViewBag.Posts[i].DateTime" class="postDate">@Util.TimeAgo(ViewBag.Posts[i].DateTime)</p>
-                    <hr class="postHR" />
-                </div>
-                <div class="postBody">
-                    @ViewBag.Posts[i].PostContent
-                </div>
-                <div class="postFooter">
-                    <hr class="footerHR"/>
-                    <a href=""><i id="thumbsUp" class="glyphicon glyphicon-thumbs-up"></i></a>
-                    <a href=""><i id="thumbsDown" class="glyphicon glyphicon-thumbs-down"></i></a>
-                <div class="likes">
-                    +1
-                </div>
-                @if (ViewBag.Posts[i].PostFile != null)
+            @if (ViewBag.Posts.Count > 0)
+            {
+                for (int i = 0; i < ViewBag.Posts.Count; i++)
                 {
-                <a href="#" data-toggle="modal" data-target="#ViewPictureModal" data-picture-id="@ViewBag.PostPictureMap[ViewBag.Posts[i]]"><i id="postFile" style="color: black;" class="glyphicon glyphicon-paperclip"></i></a>
+                    <div class="post">
+                        <div class="postHead">
+                            <img class="postImage" src="@ViewBag.ImageMap[ViewBag.Users[i]]" />
+                            <p class="postName">
+                                <a class="postLink" href=@Url.Action("UserPage", "Home", new { userName = ViewBag.Users[i].UserName })>
+                                    @ViewBag.Users[i].FirstName
+                                    @ViewBag.Users[i].LastName
+                                </a>
+                            </p>
+                            <p title="@ViewBag.Posts[i].DateTime" class="postDate">@Util.TimeAgo(ViewBag.Posts[i].DateTime)</p>
+                            <hr class="postHR" />
+                        </div>
+                        <div class="postBody">
+                            @ViewBag.Posts[i].PostContent
+                        </div>
+                        <div class="postFooter">
+                            <hr class="footerHR" />
+                            <a href=""><i id="thumbsUp" class="glyphicon glyphicon-thumbs-up"></i></a>
+                            <a href=""><i id="thumbsDown" class="glyphicon glyphicon-thumbs-down"></i></a>
+                            <div class="likes">
+                                +1
+                            </div>
+                            @if (ViewBag.Posts[i].PostFile != null)
+                            {
+                                <a href="#" data-toggle="modal" data-target="#ViewPictureModal" data-picture-id="@ViewBag.PostPictureMap[ViewBag.Posts[i]]"><i id="postFile" style="color: black;" class="glyphicon glyphicon-paperclip"></i></a>
+                            }
+                            else
+                            {
+                                <a href=""><i id="postFile" style="color: lightgray; pointer-events: none; cursor: default;" class="glyphicon glyphicon-paperclip"></i></a>
+                            }
+                            @if (ViewBag.Posts[i].UserID == User.Identity.GetUserId())
+                            {
+                                <a href="#" data-toggle="modal" data-target="#EditPostModal" class="editPost" data-url="@Url.Action("Edit", "Posts", new {id = ViewBag.Posts[i].ID})"><i id="postFile" style="color: black;" class="glyphicon glyphicon-option-vertical"></i></a>
+                                <a href="#" data-toggle="modal" data-target="#DeletePostModal" class="deletePost" data-url="@Url.Action("Delete", "Posts", new {id = ViewBag.Posts[i].ID})"><i id="postFile" style="color: black;" class="glyphicon glyphicon-trash"></i></a>
+                            }
+                        </div>
+                    </div>
                 }
-                else
-                {
-                    <a href=""><i id="postFile" style="color: lightgray; pointer-events: none; cursor: default;" class="glyphicon glyphicon-paperclip"></i></a>
-                }
-                @if (ViewBag.Posts[i].UserID == User.Identity.GetUserId())
-                {
-                <a href="#" data-toggle="modal" data-target="#EditPostModal"   class="editPost"   data-url="@Url.Action("Edit", "Posts", new {id = ViewBag.Posts[i].ID})"><i id="postFile" style="color: black;" class="glyphicon glyphicon-option-vertical"></i></a>
-                <a href="#" data-toggle="modal" data-target="#DeletePostModal" class="deletePost" data-url="@Url.Action("Delete", "Posts", new {id = ViewBag.Posts[i].ID})"><i id="postFile" style="color: black;" class="glyphicon glyphicon-trash"></i></a>
-                }
+            }
+            else
+            {
+                 <div class="post">
+                     <p class="noPosts">No Stories<br/><a class="newStoryLink" href="#" data-toggle="modal" data-target="#newStoryModalTarget">Create your own Story</a> or @Html.ActionLink("start a new Friendship", "frndify", "Home",null, new { @class = "newStoryLink" })</p>
                  </div>
-            </div>
             }
         </div>
     </div>

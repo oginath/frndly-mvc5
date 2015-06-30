@@ -8,7 +8,7 @@
         <div class="profile-sidebar">
             <!-- SIDEBAR USERPIC -->
             <div class="profile-userpic">
-                <img src="@ViewBag.Image" style="width:150px; height: 150px;"
+                <img src="@ViewBag.Image" style="width: 150px; height: 150px; border: 1px solid rgb(177, 159, 251);"
                      class="img-responsive" alt="" />
             </div>
             <!-- END SIDEBAR USERPIC -->
@@ -40,7 +40,7 @@
                         <li>
                             <a class="btn showdetails" data-toggle="collapse" data-target="#viewFriends">
                                 <i class="glyphicon glyphicon-user"></i>
-                                Friendships&nbsp;&nbsp;&nbsp;@ViewBag.Friends.Count
+                                Friendships&nbsp;&nbsp;·&nbsp;&nbsp;@ViewBag.Friends.Count
                             </a>
                             <p class="collapse" id="viewFriends" style="color: black;">
                                 @foreach (var friend in ViewBag.Friends)
