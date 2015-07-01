@@ -145,7 +145,37 @@
                 $('#deletePostModal').html(data);
             });
         })
-    </script>
+        $('.LikeSwitcher').each(function () {
+            var currentElement = $(this);
 
+            var CurrentLikeStatus = currentElement.data('like')
+            var CurrentPostID = currentElement.data('post')
+
+            if (CurrentLikeStatus == "")
+                CurrentLikeStatus = "nullLike"
+
+            switch (CurrentLikeStatus) {
+                case "nullLike":
+                    currentElement.find('.Liked').attr('href', '@Url.Action("Like", "Posts")?postID=' + CurrentPostID);
+                    currentElement.find('.Disliked').attr('href', '@Url.Action("Dislike", "Posts")?postID=' + CurrentPostID);
+                    break;
+
+                case "Like":
+                    currentElement.find('.Liked').attr('href', '@Url.Action("nullifyLike", "Posts")?postID=' + CurrentPostID);
+                    currentElement.find('.Disliked').attr('href', '@Url.Action("Dislike", "Posts")?postID=' + CurrentPostID);
+
+                    currentElement.find('#thumbsUp').css('color', 'rgb(177, 159, 251)')
+                    break;
+
+                case "Dislike":
+                    currentElement.find('.Disliked').attr('href', '@Url.Action("nullifyLike", "Posts")?postID=' + CurrentPostID);
+                    currentElement.find('.Liked').attr('href', '@Url.Action("Like", "Posts")?postID=' + CurrentPostID);
+
+                    currentElement.find('#thumbsDown').css('color', 'rgb(215, 111, 111)')
+                    break;
+            }
+
+        });
+    </script>
 </body>
 </html>

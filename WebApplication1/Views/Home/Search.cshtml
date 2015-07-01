@@ -11,32 +11,28 @@
 
             <p class="pageTitle">Search</p>
 
-            @if(!@Model.searchResult.Any()){
-
+            @if (!Model.searchResult.Any())
+            {
                 <div class="post">
-                    <p class="noPosts">No Results!</p> 
+                    <p class="noPosts">No Results!</p>
                 </div>
             }
-            
-           else
-           {
+            else
+            {
+                for (int i = 0; i < Model.searchResult.Count; i++)
+                {
 
-            for (int i = 0; i < @Model.searchResult.Count; i++){
-            
-                <div class="post">
-                    <img class="searchImage" src="@Model.imageDataURLs.ElementAt(i)" />
+                    <div class="post">
+                        <img class="searchImage" src="@Model.imageDataURLs.ElementAt(i)" />
 
-                    <p class="searchName">
-                        <a class="searchLink" href=@Url.Action("UserPage", "Home", new { userName = Model.searchResult.ElementAt(i).UserName })>
-                        @Model.searchResult.ElementAt(i).FirstName @Model.searchResult.ElementAt(i).LastName
-                        </a>
-                    </p>
-
-                </div>
+                        <p class="searchName">
+                            <a class="searchLink" href=@Url.Action("UserPage", "Home", new { userName = Model.searchResult.ElementAt(i).UserName })>
+                                @Model.searchResult.ElementAt(i).FirstName @Model.searchResult.ElementAt(i).LastName
+                            </a>
+                        </p>
+                    </div>
                 }
-           }
-          
+            }
         </div>
     </div>
-
 </div>

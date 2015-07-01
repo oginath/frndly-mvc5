@@ -165,6 +165,55 @@ namespace WebApplication1.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        public async Task<ActionResult> Like(int postID)
+        {
+            PostsDbContext postsContext = new PostsDbContext();
+            var currentUserID = User.Identity.GetUserId();
+
+            var posts = (from l in postsContext.Likes where l.postID == postID && l.userID == currentUserID select l).ToList();
+
+            if (posts.Any())
+                postsContext.Likes.Remove(posts.ElementAt(0));
+
+            postsContext.Likes.Add(new Like() { postID = postID, userID = User.Identity.GetUserId(), Status = LikeStatus.Like });
+
+            await postsContext.SaveChangesAsync();
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        public async Task<ActionResult> Dislike(int postID)
+        {
+            PostsDbContext postsContext = new PostsDbContext();
+            var currentUserID = User.Identity.GetUserId();
+
+            var posts = (from l in postsContext.Likes where l.postID == postID && l.userID == currentUserID select l).ToList();
+            if (posts.Any())
+                postsContext.Likes.Remove(posts.ElementAt(0));
+
+            postsContext.Likes.Add(new Like() { postID = postID, userID = User.Identity.GetUserId(), Status = LikeStatus.Dislike });
+
+            await postsContext.SaveChangesAsync();
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        public async Task<ActionResult> nullifyLike(int postID)
+        {
+            PostsDbContext postsContext = new PostsDbContext();
+            var currentUserID = User.Identity.GetUserId();
+
+            var posts = (from l in postsContext.Likes where l.postID == postID && l.userID == currentUserID select l).ToList();
+            if (posts.Any())
+                postsContext.Likes.Remove(posts.ElementAt(0));
+
+            await postsContext.SaveChangesAsync();
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

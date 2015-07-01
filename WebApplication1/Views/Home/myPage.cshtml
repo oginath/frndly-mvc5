@@ -31,10 +31,12 @@
                         </div>
                         <div class="postFooter">
                             <hr class="footerHR" />
-                            <a href=""><i id="thumbsUp" class="glyphicon glyphicon-thumbs-up"></i></a>
-                            <a href=""><i id="thumbsDown" class="glyphicon glyphicon-thumbs-down"></i></a>
+                            <div class="LikeSwitcher" data-post="@ViewBag.Posts[i].ID" data-like="@(ViewBag.LikesTable.ContainsKey(ViewBag.Posts[i].ID) ? ViewBag.LikesTable[ViewBag.Posts[i].ID].Status : null)">
+                                <a class="Liked" href=""><i id="thumbsUp" class="glyphicon glyphicon-thumbs-up"></i></a>
+                                <a class="Disliked" href=""><i id="thumbsDown" class="glyphicon glyphicon-thumbs-down"></i></a>
+                            </div>
                             <div class="likes">
-                                +1
+                                @ViewBag.numOfLikes[i]
                             </div>
                             @if (ViewBag.Posts[i].PostFile != null)
                             {

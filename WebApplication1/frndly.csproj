@@ -169,6 +169,14 @@
     <Compile Include="Migrations\PostsDbContext\201506231622589_InitialCreate.Designer.cs">
       <DependentUpon>201506231622589_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\PostsDbContext\201507010955531_Like.cs" />
+    <Compile Include="Migrations\PostsDbContext\201507010955531_Like.Designer.cs">
+      <DependentUpon>201507010955531_Like.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\PostsDbContext\201507011020460_Like1.cs" />
+    <Compile Include="Migrations\PostsDbContext\201507011020460_Like1.Designer.cs">
+      <DependentUpon>201507011020460_Like1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\PostsDbContext\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\PostsModels.cs" />
@@ -299,6 +307,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\PostsDbContext\201506231622589_InitialCreate.resx">
       <DependentUpon>201506231622589_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\PostsDbContext\201507010955531_Like.resx">
+      <DependentUpon>201507010955531_Like.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\PostsDbContext\201507011020460_Like1.resx">
+      <DependentUpon>201507011020460_Like1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -76,6 +76,42 @@ namespace WebApplication1.Controllers
                         PostPictureMap.Add(post, imageDataURL);
                     }
                 }
+
+                List<Like> userLikes = new List<Like>();
+                List<int> numOfLikes = new List<int>();
+                for(int i = 0; i < postList.Count; i++)
+                {
+                    int curPostID = postList[i].ID;
+                    postList[i].Likes = (from l in postsContext.Likes where l.postID == curPostID select l).ToList();
+                    var uL = (from l in postList[i].Likes where l.userID == currentUserID select l).ToList();
+                    if(uL.Any())
+                        userLikes.Add(uL[0]);
+
+                    int n = 0;
+                    foreach (Like like in postList[i].Likes)
+                    {
+                        switch (like.Status)
+                        {
+                            case LikeStatus.Like:
+                                n++;
+                                break;
+                            case LikeStatus.Dislike:
+                                n--;
+                                break;
+                        }
+                    }
+                    numOfLikes.Add(n);
+                }                
+
+                Hashtable table = new Hashtable();
+
+                foreach (Like like in userLikes)
+                {
+                    table.Add(like.postID, like);
+                }
+
+                ViewBag.LikesTable = table;
+                ViewBag.numOfLikes = numOfLikes;
                 ViewBag.Users = userList;
                 ViewBag.Posts = postList;
                 ViewBag.ImageMap = UserPictureMap;
@@ -300,6 +336,42 @@ namespace WebApplication1.Controllers
                         PostPictureMap.Add(post, imageDataURL);
                     }
                 }
+
+                List<Like> userLikes = new List<Like>();
+                List<int> numOfLikes = new List<int>();
+                for (int i = 0; i < postList.Count; i++)
+                {
+                    int curPostID = postList[i].ID;
+                    postList[i].Likes = (from l in postsContext.Likes where l.postID == curPostID select l).ToList();
+                    var uL = (from l in postList[i].Likes where l.userID == currentUserID select l).ToList();
+                    if (uL.Any())
+                        userLikes.Add(uL[0]);
+
+                    int n = 0;
+                    foreach (Like like in postList[i].Likes)
+                    {
+                        switch (like.Status)
+                        {
+                            case LikeStatus.Like:
+                                n++;
+                                break;
+                            case LikeStatus.Dislike:
+                                n--;
+                                break;
+                        }
+                    }
+                    numOfLikes.Add(n);
+                }
+
+                Hashtable table = new Hashtable();
+
+                foreach (Like like in userLikes)
+                {
+                    table.Add(like.postID, like);
+                }
+
+                ViewBag.LikesTable = table;
+                ViewBag.numOfLikes = numOfLikes;
                 ViewBag.Users = userList;
                 ViewBag.Posts = postList;
                 ViewBag.ImageMap = UserPictureMap;
@@ -393,6 +465,42 @@ namespace WebApplication1.Controllers
                     PostPictureMap.Add(post, imageDataURL);
                 }
             }
+
+            List<Like> userLikes = new List<Like>();
+            List<int> numOfLikes = new List<int>();
+            for (int i = 0; i < postList.Count; i++)
+            {
+                int curPostID = postList[i].ID;
+                postList[i].Likes = (from l in postsContext.Likes where l.postID == curPostID select l).ToList();
+                var uL = (from l in postList[i].Likes where l.userID == currentUserID select l).ToList();
+                if (uL.Any())
+                    userLikes.Add(uL[0]);
+
+                int n = 0;
+                foreach (Like like in postList[i].Likes)
+                {
+                    switch (like.Status)
+                    {
+                        case LikeStatus.Like:
+                            n++;
+                            break;
+                        case LikeStatus.Dislike:
+                            n--;
+                            break;
+                    }
+                }
+                numOfLikes.Add(n);
+            }
+
+            Hashtable table = new Hashtable();
+
+            foreach (Like like in userLikes)
+            {
+                table.Add(like.postID, like);
+            }
+
+            ViewBag.LikesTable = table;
+            ViewBag.numOfLikes = numOfLikes;
             ViewBag.Users = userList;
             ViewBag.Posts = postList;
             ViewBag.ImageMap = UserPictureMap;
